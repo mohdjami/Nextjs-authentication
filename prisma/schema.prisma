@@ -6,19 +6,52 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgres"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
+  id            String    @unique @default(cuid())
+  username      String?   
+  email         String    @id @unique
+  emailVerified DateTime?
+  image         String?
+  googleID      String? @unique
   password  String
   createdAt DateTime @default(now())
   updateUt  DateTime @updatedAt
+  registered_at DateTime? @default(now()) @db.Timestamptz(6)
   resetToken String?  @unique
   resetTokenExpiry DateTime?
-  emailVerified DateTime?
+  Account       Account[]
+  Session       Session[]
 }
+
 

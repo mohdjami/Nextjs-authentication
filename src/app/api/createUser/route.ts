@@ -26,16 +26,6 @@ export async function POST(req: Request) {
         { status: 409 }
       );
     }
-    const extistingUserByUsername = await db.user.findUnique({
-      where: { username: username },
-    });
-
-    if (extistingUserByUsername) {
-      return NextResponse.json(
-        { user: null, message: "user with this Username already exist" },
-        { status: 409 }
-      );
-    }
 
     const hashedPassword = await hash(password, 10);
 
@@ -47,11 +37,15 @@ export async function POST(req: Request) {
       },
     });
     const { password: newhashedPassword, ...rest } = newUser;
-    return NextResponse.json({
-      user: rest,
-      message: "User created successfully",
-    });
+    return NextResponse.json(
+      {
+        user: rest,
+        message: "User created successfully",
+      },
+      { status: 201 }
+    );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { user: null, message: "something went wrong" },
       { status: 500 }

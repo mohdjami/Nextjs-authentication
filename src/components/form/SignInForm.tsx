@@ -62,12 +62,12 @@ const SignInForm = () => {
         password: values.password,
         redirect: false,
       });
-
-      if (result?.error) {
+      console.log(result);
+      if (result?.error === "CredentialsSignin") {
         toast({
-          title: "User not found",
+          title: "Either email or password is wrong",
           description:
-            "user with this email does not exist please sign-up first",
+            "Please sign up if you are not a user or click on forgot password t reset your password",
           variant: "destructive",
         });
       } else {

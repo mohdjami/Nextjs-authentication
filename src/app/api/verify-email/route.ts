@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 // Path: src/app/api/reset-password/route.ts
 export async function GET(req: Request) {
-  const token = parseInt(req.url.split("=")[1], 10);
+  const token = req.url.split("=")[1];
   try {
     if (!token) {
       return NextResponse.json(
@@ -17,16 +17,7 @@ export async function GET(req: Request) {
         { status: 400 }
       );
     }
-    const id = Number(token);
-    if (isNaN(id)) {
-      return NextResponse.json(
-        {
-          user: null,
-          message: "Invalid token",
-        },
-        { status: 400 }
-      );
-    }
+    const id = token;
     const user = await db.user.findUnique({ where: { id } });
     // Rest of your code...
     //what i should do is that i should find the user by unique email and check if the token matches
