@@ -12,10 +12,17 @@ export async function POST(req: Request) {
         email: email,
       },
     });
-
+    if (!dbUser) {
+      return NextResponse.json(
+        { user: null, message: "user not found" },
+        { status: 404 }
+      );
+    }
+    const token = dbUser.id.toString();
+    console.log("token for email verification is=", token);
     if (dbUser) {
       // Send verification email
-      await sendEmail(email, dbUser.id.toString());
+      await sendEmail(email, token);
       console.log("email sent");
     } else {
       console.log("email not sent email= ", email);

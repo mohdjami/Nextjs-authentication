@@ -53,19 +53,28 @@ const SignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       const response = await axios.post("/api/createUser", values);
-      if (response.status === 200) {
-        const response = await axios.post("/api/sendEmailVerification", values);
-        console.log("email verification response:", response);
+      console.log("response= ", response, "status", response.status);
+
+      if (response.status === 201) {
+        try {
+          const response = await axios.post(
+            "/api/sendEmailVerification",
+            values
+          );
+          console.log("email verification response:", response);
+          router.push("/sign-in");
+          toast({
+            title: "Verify Email to Sign-in",
+            description:
+              "A verification email has been sent to your email address. Please verify your email to complete the sign-up process.",
+            variant: "destructive",
+          });
+        } catch (error) {
+          console.log("error in sending email verification", error);
+        }
       }
-      router.push("/sign-in");
-      toast({
-        title: "Verify Email to Sign-in",
-        description:
-          "A verification email has been sent to your email address. Please verify your email to complete the sign-up process.",
-        variant: "destructive",
-      });
-      console.log(response);
     } catch (error) {
+      console.log("error in creating user", error);
       toast({
         title: "Error",
         description: "Oops Something went wrong",
