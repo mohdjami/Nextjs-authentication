@@ -4,6 +4,7 @@ import { HandMetal } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import UserAccountNav from "./UserAccountNav";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -13,6 +14,7 @@ const Navbar = async () => {
         <Link href="/">
           <HandMetal />
         </Link>
+        <ModeToggle></ModeToggle>
         {session?.user ? (
           <UserAccountNav />
         ) : (
