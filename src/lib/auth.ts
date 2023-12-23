@@ -16,7 +16,7 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
-    Credentials({
+    CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -61,8 +61,6 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     session({ session, user }) {
-      user.name = session.user.name;
-      user.username = session.user.username;
       return session;
     },
   },
