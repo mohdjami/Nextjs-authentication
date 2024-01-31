@@ -145,7 +145,7 @@ const SignInForm = () => {
         Forgot Password
       </Link>
 
-      <div className=" text-center mx-auto text-gray-600 mt-2 my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+      <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 dark:text-slate-950">
         or
       </div>
       <div style={{ marginBottom: "10px" }}>

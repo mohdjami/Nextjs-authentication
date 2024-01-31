@@ -86,14 +86,22 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full space-y-2 md:space-y-2"
+      >
+        <div className="space-y-2 md:space-y-2">
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className="w-full mt-4 mb-1 md:mt-8 lg:mt-10 block lg:hidden dark:text-gray-600">
+                  Username
+                </FormLabel>
+                <FormLabel className="md:block hidden dark:text-gray-600  md:mb-1">
+                  Username
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="johndoe" {...field} />
                 </FormControl>
@@ -106,7 +114,7 @@ const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="dark:text-gray-600">Email</FormLabel>
                 <FormControl>
                   <Input placeholder="mail@example.com" {...field} />
                 </FormControl>
@@ -119,7 +127,7 @@ const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className=" dark:text-gray-600">Password</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -136,7 +144,9 @@ const SignUpForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Re-Enter your password</FormLabel>
+                <FormLabel className="dark:text-gray-600">
+                  Re-Enter your password
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Re-Enter your password"
@@ -149,11 +159,24 @@ const SignUpForm = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-6" type="submit">
-          Sign up
-        </Button>
+        <div style={{ marginBottom: "10px" }}>
+          <Button
+            className="flex items-center space-x-2 w-full md:block hidden  "
+            type="submit"
+            variant="outline"
+          >
+            Sign up
+          </Button>
+          <Button
+            className="w-full mt-4 md:mt-8 lg:mt-10 block lg:hidden"
+            type="submit"
+            variant="outline"
+          >
+            Sign up
+          </Button>
+        </div>
       </form>
-      <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+      <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 dark:text-gray-600 ">
         or
       </div>
       <div style={{ marginBottom: "10px" }}>
